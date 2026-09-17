@@ -1,10 +1,9 @@
 # TryHackMe — Pickle Rick
 
-A beginner-friendly CTF room from TryHackMe focused on web enumeration, command execution, Linux enumeration and privilege escalation.
-
 ## What I Practiced
 
 * Nmap reconnaissance
+* Gobuster directory enumeration
 * Web enumeration
 * `robots.txt`
 * Linux file system enumeration
@@ -24,9 +23,9 @@ Started by scanning the target with Nmap to identify open ports and available se
 
 ### 2. Web Enumeration
 
-After discovering the web server, I inspected the website and found `robots.txt`.
+After discovering the web server, I used **Gobuster** to enumerate directories and files exposed by the web server.
 
-This exposed information that helped me obtain the password for the Rick portal.
+I also inspected `robots.txt`, which contained information that helped me obtain the password for the Rick portal.
 
 ### 3. Command Panel
 
@@ -38,13 +37,11 @@ The commands were executed as:
 www-data
 ```
 
-This was an important lesson because the web server was effectively giving me command execution on the machine.
-
 ### 4. Finding the Ingredients
 
 I enumerated the filesystem and found the three required ingredients in different locations.
 
-This required understanding Linux paths, file permissions and using commands such as:
+I used Linux commands such as:
 
 ```bash
 ls
@@ -54,7 +51,7 @@ strings
 
 ### 5. Privilege Escalation
 
-I checked the sudo permissions with:
+I checked sudo permissions with:
 
 ```bash
 sudo -l
@@ -80,26 +77,15 @@ root
 
 ### 6. Root
 
-With root privileges, I was able to access `/root` and locate the final ingredient.
+With root privileges, I accessed `/root` and located the final ingredient.
 
 ## Key Lessons
 
-The biggest things I learned from this room:
-
-* A web application can provide command execution on the underlying Linux server.
+* Nmap can be used for initial reconnaissance.
+* Gobuster can enumerate directories and files on a web server.
+* `robots.txt` can sometimes expose useful information.
+* Web applications can provide command execution on the underlying server.
 * `www-data` is commonly used by web servers.
-* Application-level command filtering is different from Linux file permissions.
-* `find` is useful for locating files across a Linux filesystem.
-* `sudo -l` is an important command when investigating privilege escalation.
-* Misconfigured sudo permissions can allow a low-privileged user to become root.
-* Enumeration is often more important than immediately trying random exploits.
-
-## Skills
-
-`Linux` `Nmap` `Web Enumeration` `Command Execution` `Privilege Escalation` `Sudo` `CTF`
-
-## Platform
-
-TryHackMe — Pickle Rick
-
-Completed: September 2026
+* `sudo -l` can reveal dangerous sudo permissions.
+* Misconfigured sudo permissions can allow privilege escalation to root.
+* Linux enumeration is an important part of CTFs and penetration testing.
